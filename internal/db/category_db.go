@@ -13,7 +13,7 @@ type CategoryDB struct {
 	db *sql.DB
 }
 
-func NewCategory(db *sql.DB) *CategoryDB {
+func NewCategoryDb(db *sql.DB) *CategoryDB {
 	sqlStmt := `
 	CREATE TABLE IF NOT EXISTS Categories 
 		(id TEXT NOT NULL, name TEXT NOT NULL, description TEXT NOT NULL);
