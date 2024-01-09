@@ -13,4 +13,7 @@ protoc --go_out=. --go-grpc_out=. proto/course_category.proto
 
 ```bash
 evans -r repl
+package pb
+service CategoryService
+call {function}
 ```

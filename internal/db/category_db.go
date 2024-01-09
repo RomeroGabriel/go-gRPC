@@ -61,10 +61,20 @@ func (c *CategoryDB) FindAll() ([]entity.Category, error) {
 	return categories, nil
 }
 
-func (c *CategoryDB) FindAllByCourseId(courseId string) (entity.Category, error) {
+func (c *CategoryDB) FindByCourseId(courseId string) (entity.Category, error) {
 	var id, name, description string
-	err := c.db.QueryRow("SELECT c.id, c.name, c.description FROM categories c JOIN courses co ON c.id = co.categoryId WHERE co.id = $1", courseId).
+	err := c.db.QueryRow("SELECT c.id, c.name, c.description FROM Categories c JOIN courses co ON c.id = co.categoryId WHERE co.id = $1", courseId).
 		Scan(&id, &name, &description)
+	if err != nil {
+		return entity.Category{}, err
+	}
+	return entity.Category{Id: id, Name: name, Description: description}, nil
+}
+
+func (c *CategoryDB) FindByID(id string) (entity.Category, error) {
+	var name, description string
+	err := c.db.QueryRow("SELECT name, description FROM Categories WHERE id = $1", id).
+		Scan(&name, &description)
 	if err != nil {
 		return entity.Category{}, err
 	}
