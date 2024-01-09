@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+	"io"
 
 	"github.com/RomeroGabriel/go-gRPC/internal/db"
 	"github.com/RomeroGabriel/go-gRPC/internal/pb"
@@ -63,4 +64,27 @@ func (c *CategoryService) GetCategory(ctx context.Context, in *pb.CategoryGetReq
 		Description: category.Description,
 	}
 	return categoryResponse, err
+}
+
+func (c *CategoryService) CreateCategoryStream(stream pb.CategoryService_CreateCategoryStreamServer) error {
+	categories := &pb.CategoryList{}
+	for {
+		category, err := stream.Recv()
+		if err == io.EOF {
+			return stream.SendAndClose(categories)
+		}
+		if err != nil {
+			return err
+		}
+
+		categoryResult, err := c.CatetgoryDb.Create(category.Name, category.Description)
+		if err != nil {
+			return err
+		}
+		categories.Categories = append(categories.Categories, &pb.Category{
+			Id:          categoryResult.Id,
+			Name:        categoryResult.Name,
+			Description: categoryResult.Description,
+		})
+	}
 }
