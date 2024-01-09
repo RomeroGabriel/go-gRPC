@@ -7,6 +7,7 @@ import (
 	"github.com/RomeroGabriel/go-gRPC/internal/db"
 	"github.com/RomeroGabriel/go-gRPC/internal/pb"
 	"github.com/RomeroGabriel/go-gRPC/internal/service"
+	_ "github.com/mattn/go-sqlite3"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 )
