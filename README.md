@@ -1,4 +1,4 @@
-# Go-gRPC
+# go-gRPC
 
 This is a simple project focused on learning and improving with gRPC. It consists of a basic entity, Category, which is stored in an SQLite file database. Additionally, by using gRPC, it is possible to send operations to the gRPC server for saving and listing.
 
