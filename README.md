@@ -6,7 +6,7 @@
 Genereate proto files
 
 ```bash
-protoc --go_out=. --go-grpc_out=. proto/course_category.proto
+protoc --go_out=. --go-grpc_out=. proto/category.proto
 ```
 
 [Evans Client](https://github.com/ktr0731/evans)
